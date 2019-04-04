@@ -1,0 +1,123 @@
+.today{
+    /*color: #2327f2;*/
+    border: solid blue 1px;
+    text-align: center;!important;
+
+}
+
+.dayoff{
+    color: #f21e17;
+    text-align: center;!important;
+
+}
+
+.friday{
+    color: #f21e17;
+}
+.dayoff_over{
+    background-color: #f22fda;
+    color: black;
+
+}
+.pad{
+
+}
+.mouseOver{
+    background-color: #fbcdff;
+    color: black;
+}
+
+td{
+    text-align: center;!important;
+    width: 40px;!important;
+    border: solid blue 1px;
+    font-family: Tahoma; !important;
+    font-size:  11px;!important;
+}
+
+.milady_day{
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+.hejri_day{
+    width: 50%;
+    float: right;
+    text-align: center;
+}
+.shamsi_day{
+    width: 100%;
+    text-align: center;!important;
+
+}
+td div{
+    text-align: center;!important;
+
+}
+tfoot td{
+    text-align: center;!important;
+
+}
+tfoot td button{
+    text-align: center;!important;
+    font-family: Tahoma; !important;
+    font-size:  16px;!important;
+
+}
+th{
+    text-align: center;!important;
+    width: 40px;!important;
+    border: solid blue 1px;
+    font-family: Tahoma; !important;
+    font-size:  16px;!important;
+}
+table caption div{
+    text-align: center;!important;
+    font-family: Tahoma; !important;
+    font-size:  14px;!important;
+}
+div.milady_header {
+width: 100%;
+    height: 24px;
+    text-align: center;
+}
+#wp_persian_tbl_caption_miladi_month_from{
+    /*background-color: yellow;!important;*/
+    width: 25%;
+    float: right;
+}
+#wp_persian_tbl_caption_miladi_month_to{
+    /*background-color: blue;!important;*/
+    /*width: 25%;*/
+    float: right;
+}
+#wp_persian_tbl_caption_miladi_year_from{
+    /*background-color: #9d59ff;!important;*/
+    width: 24%;
+    float: right;
+}
+#wp_persian_tbl_caption_miladi_year_to{
+    /*background-color: #3b30ff;!important;*/
+    width: 20%;
+    float: right;
+}
+#wp_persian_tbl_caption_hejri_month_from{
+    /*background-color: yellow;!important;*/
+    width: 25%;
+    float: right;
+}
+#wp_persian_tbl_caption_hejri_month_to{
+    /*background-color: blue;!important;*/
+    /*width: 25%;*/
+    float: right;
+}
+#wp_persian_tbl_caption_hejri_year_from{
+    /*background-color: #9d59ff;!important;*/
+    width: 24%;
+    float: right;
+}
+#wp_persian_tbl_caption_hejri_year_to{
+    /*background-color: #3b30ff;!important;*/
+    width: 20%;
+    float: right;
+}
