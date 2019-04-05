@@ -7,8 +7,9 @@ jQuery(document).ready(function ($) {
         //
         // document.getElementById("wpbody-content").appendChild(node);
         console.log("wp_pesian_calendar loaded!")
-        WidgetConstructor(null);
 
+        WidgetConstructor(null);
+        add_dialog_box_and_events();
     }
     function getClassName($class_name1,$mystate) {
         if($mystate!=NaN && $mystate==true)
@@ -29,10 +30,10 @@ jQuery(document).ready(function ($) {
             success:function (response) {
 
 
-                console.log(response);
-                console.log(response.message);
-                let my_json = JSON.parse(response.message);
-                WidgetConstructor(my_json);
+                // console.log(response);
+                // console.log(response.message);
+                // let my_json = JSON.parse(response.message);
+                WidgetConstructor(JSON.parse(response.message));
 
 
             },
@@ -269,9 +270,6 @@ jQuery(document).ready(function ($) {
 
 
         });
-    }
-    function add_dialog_box_and_events() {
-
         $(".month_select_icon").on({
 
             mouseenter: function () {
@@ -304,8 +302,6 @@ jQuery(document).ready(function ($) {
             }
 
         });
-
-
         $("#year_select_dialog").dialog({
             autoOpen: false,
             show: {
@@ -322,26 +318,6 @@ jQuery(document).ready(function ($) {
             position: { my: "center center", at: "center center", of: $("#wp_persian_calendar_table") }
 
         });
-
-        $(".year_select_icon").on("click",function (ev) {
-            ev.preventDefault();
-            $("#year_select_dialog").dialog('open');
-
-        });
-
-        $("#year_select_dialog_close").on("click",function (ev) {
-            ev.preventDefault();
-            $("#year_select_dialog").dialog('close');
-            if($.isNumeric($("#year_select_text").val()) && $("#year_select_text").val()>1349){
-                console.log("مقدار وارد شده، صحیح است");
-                ajax_send($("#year_select_text").val(),$("#wp_persian_tbl_caption_shamsi").attr('data-smonth'));
-            }
-            else {
-                console.log("مقدار وارد شده، صحیح نیست");
-
-            }
-        });
-
         $("#month_select_dialog").dialog({
             autoOpen: false,
             show: {
@@ -357,13 +333,37 @@ jQuery(document).ready(function ($) {
             position: { my: "center center", at: "center center", of: $("#wp_persian_calendar_table") }
 
         });
+        $(".year_select_icon").on("click",function (ev) {
+            ev.preventDefault();
+            $("#year_select_dialog").dialog('open');
 
+        });
         $(".month_select_icon").on("click",function (ev) {
             ev.preventDefault();
             console.log("#month_select");
             $("#month_select_dialog").dialog('open');
 
         });
+
+    }
+    function add_dialog_box_and_events() {
+
+
+        $("#year_select_dialog_close").on("click",function (ev) {
+            ev.preventDefault();
+            $("#year_select_dialog").dialog('close');
+            if($.isNumeric($("#year_select_text").val()) && $("#year_select_text").val()>1349){
+                console.log("مقدار وارد شده، صحیح است");
+                ajax_send($("#year_select_text").val(),$("#wp_persian_tbl_caption_shamsi").attr('data-smonth'));
+            }
+            else {
+                console.log("مقدار وارد شده، صحیح نیست");
+
+            }
+        });
+
+
+
 
         $(".month_select_button").on("click",function (ev) {
             ev.preventDefault();
@@ -385,49 +385,49 @@ jQuery(document).ready(function ($) {
 
         add_event_click_to_days();
 
-        add_dialog_box_and_events();
+        // add_dialog_box_and_events();
 
         $('body').persianNum();
         $( document ).tooltip();
 
     }
 
-    $("#wp_persian_calendar_button").on("click",function () {
-        $.ajax({
-            // url:'wp-admin/admin-ajax.php',
-            url:'admin-ajax.php',
-            type:'post',
-            data:{
-                action:'wp_persian_calendar_custom_load',
-                year:$("#next_month").attr('data-in'),
-                month:$("#next_month").attr('data-out'),
-            },
-            success:function (response) {
-
-                load();
-                let my_json = JSON.parse(response.message);
-
-
-                console.log(my_json);
-
-                console.log(my_json[0].header.shamsi["data-sstring"]);
-                console.log(my_json[4].week[0].day["data-sday-ocassion-desc"]);
-                console.log(my_json[6].week[4].day["data-hday-ocassion-is-off"]);
-                console.log(getClassName("dayoff",my_json[6].week[4].day["data-hday-ocassion-is-off"]));
-
-
-                WidgetConstructor(my_json);
-            },
-            error:function (error) {
-                console.log(error);
-
-                $("#wp_persian_calendar_main").html(error.responseText);
-            }
-
-        });
-
-
-    });
+    // $("#wp_persian_calendar_button").on("click",function () {
+    //     $.ajax({
+    //         // url:'wp-admin/admin-ajax.php',
+    //         url:'admin-ajax.php',
+    //         type:'post',
+    //         data:{
+    //             action:'wp_persian_calendar_custom_load',
+    //             year:$("#next_month").attr('data-in'),
+    //             month:$("#next_month").attr('data-out'),
+    //         },
+    //         success:function (response) {
+    //
+    //             load();
+    //             let my_json = JSON.parse(response.message);
+    //
+    //
+    //             console.log(my_json);
+    //
+    //             console.log(my_json[0].header.shamsi["data-sstring"]);
+    //             console.log(my_json[4].week[0].day["data-sday-ocassion-desc"]);
+    //             console.log(my_json[6].week[4].day["data-hday-ocassion-is-off"]);
+    //             console.log(getClassName("dayoff",my_json[6].week[4].day["data-hday-ocassion-is-off"]));
+    //
+    //
+    //             WidgetConstructor(my_json);
+    //         },
+    //         error:function (error) {
+    //             console.log(error);
+    //
+    //             $("#wp_persian_calendar_main").html(error.responseText);
+    //         }
+    //
+    //     });
+    //
+    //
+    // });
 
 
 });
