@@ -375,6 +375,113 @@ jQuery(document).ready(function ($) {
         });
 
     }
+    function add_event_month_year_mousemove() {
+        $("#wp_persian_tbl_caption_miladi_month_from").on({
+
+            mouseenter: function () {
+                    $(this).addClass('mouseOver');
+                    my_parent = $(this);
+                    $("#wp_persian_calendar_table tbody td:not(.pad) div.milady_day").each(function (index, control) {
+
+                        if(parseInt($(control).attr('data-mmonth')) == parseInt(my_parent.attr('data-mmonth-from')))
+                            $(this).parent().addClass('mouseOver');
+
+                    });
+
+
+            },
+            mouseleave: function () {
+                    $(this).removeClass('mouseOver');
+                $("#wp_persian_calendar_table tbody td:not(.pad) div.milady_day").each(function (index, control) {
+
+                    if(parseInt($(control).attr('data-mmonth')) == parseInt(my_parent.attr('data-mmonth-from')))
+                        $(this).parent().removeClass('mouseOver');
+
+                });
+
+            }
+
+        });
+        $("#wp_persian_tbl_caption_miladi_month_to").on({
+
+            mouseenter: function () {
+                $(this).addClass('mouseOver');
+                my_parent = $(this);
+                $("#wp_persian_calendar_table tbody td:not(.pad) div.milady_day").each(function (index, control) {
+
+                    if(parseInt($(control).attr('data-mmonth')) == parseInt(my_parent.attr('data-mmonth-to')))
+                        $(this).parent().addClass('mouseOver');
+
+                });
+
+
+            },
+            mouseleave: function () {
+                $(this).removeClass('mouseOver');
+                $("#wp_persian_calendar_table tbody td:not(.pad) div.milady_day").each(function (index, control) {
+
+                    if(parseInt($(control).attr('data-mmonth')) == parseInt(my_parent.attr('data-mmonth-to')))
+                        $(this).parent().removeClass('mouseOver');
+
+                });
+
+            }
+
+        });
+
+        $("#wp_persian_tbl_caption_hejri_month_from").on({
+
+            mouseenter: function () {
+                $(this).addClass('mouseOver');
+                my_parent = $(this);
+                $("#wp_persian_calendar_table tbody td:not(.pad) div.hejri_day").each(function (index, control) {
+
+                    if(parseInt($(control).attr('data-hmonth')) == parseInt(my_parent.attr('data-hmonth-from')))
+                        $(this).parent().addClass('mouseOver');
+
+                });
+
+
+            },
+            mouseleave: function () {
+                $(this).removeClass('mouseOver');
+                $("#wp_persian_calendar_table tbody td:not(.pad) div.hejri_day").each(function (index, control) {
+
+                    if(parseInt($(control).attr('data-hmonth')) == parseInt(my_parent.attr('data-hmonth-from')))
+                        $(this).parent().removeClass('mouseOver');
+
+                });
+
+            }
+
+        });
+        $("#wp_persian_tbl_caption_hejri_month_to").on({
+
+            mouseenter: function () {
+                $(this).addClass('mouseOver');
+                my_parent = $(this);
+                $("#wp_persian_calendar_table tbody td:not(.pad) div.hejri_day").each(function (index, control) {
+
+                    if(parseInt($(control).attr('data-hmonth')) == parseInt(my_parent.attr('data-hmonth-to')))
+                        $(this).parent().addClass('mouseOver');
+
+                });
+
+
+            },
+            mouseleave: function () {
+                $(this).removeClass('mouseOver');
+                $("#wp_persian_calendar_table tbody td:not(.pad) div.hejri_day").each(function (index, control) {
+
+                    if(parseInt($(control).attr('data-hmonth')) == parseInt(my_parent.attr('data-hmonth-to')))
+                        $(this).parent().removeClass('mouseOver');
+
+                });
+
+            }
+
+        });
+    }
     function WidgetConstructor(json_persian_dates){
         if(json_persian_dates!=null)
             $("#wp_persian_calendar_main").html(generateTable(json_persian_dates));
@@ -385,7 +492,7 @@ jQuery(document).ready(function ($) {
 
         add_event_click_to_days();
 
-        // add_dialog_box_and_events();
+        add_event_month_year_mousemove();
 
         $('body').persianNum();
         $( document ).tooltip();
