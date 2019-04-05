@@ -62,7 +62,7 @@ function wp_parsicalendar_custom_script_handle(){
         wp_register_script("wp_front_persian_number",WP_PERSIAN_CALENDAR_CUSTOM_CSS_ASSETS.'front/js/persianNum.jquery-2.min.js',['jquery'],'1.0',true);
         wp_enqueue_script("wp_front_persian_number");
 
-        wp_register_script("wp_front_persian_calendar",WP_PERSIAN_CALENDAR_CUSTOM_CSS_ASSETS.'front/js/wp_front_persian_calendar.js',['jquery','jquery-ui-core','jquery-ui-dialog','jquery-ui-tabs','jquery-ui-button','jquery-effects-core','jquery-effects-fade','jquery-effects-explode'],'1.0',true);
+        wp_register_script("wp_front_persian_calendar",WP_PERSIAN_CALENDAR_CUSTOM_CSS_ASSETS.'front/js/wp_front_persian_calendar.js',['jquery','jquery-ui-core','jquery-ui-dialog','jquery-ui-tabs','jquery-ui-button','jquery-effects-core','jquery-effects-fade','jquery-effects-explode','jquery-ui-tooltip'],'1.0',true);
         wp_enqueue_script("wp_front_persian_calendar");
 
 
@@ -75,7 +75,7 @@ function wp_parsicalendar_custom_script_handle(){
         wp_register_script("wp_front_persian_number",WP_PERSIAN_CALENDAR_CUSTOM_CSS_ASSETS.'front/js/persianNum.jquery-2.min.js',['jquery'],'1.0',true);
         wp_enqueue_script("wp_front_persian_number");
 
-        wp_register_script("wp_front_persian_calendar",WP_PERSIAN_CALENDAR_CUSTOM_CSS_ASSETS.'front/js/wp_front_persian_calendar.js',['jquery','jquery-ui-core','jquery-ui-dialog','jquery-ui-tabs','jquery-ui-button','jquery-effects-core','jquery-effects-fade','jquery-effects-explode'],'1.0',true);
+        wp_register_script("wp_front_persian_calendar",WP_PERSIAN_CALENDAR_CUSTOM_CSS_ASSETS.'front/js/wp_front_persian_calendar.js',['jquery','jquery-ui-core','jquery-ui-dialog','jquery-ui-tabs','jquery-ui-button','jquery-effects-core','jquery-effects-fade','jquery-effects-explode','jquery-ui-tooltip'],'1.0',true);
         wp_enqueue_script("wp_front_persian_calendar");
 
         wp_register_style("wp_front_persian_calendar_css",WP_PERSIAN_CALENDAR_CUSTOM_CSS_ASSETS.'front/css/wp_front_persian_calendar.css',null,'1.0');

@@ -16,10 +16,37 @@ jQuery(document).ready(function ($) {
         else
             return "";
     }
+    function ajax_send(year,month) {
+        $.ajax({
+            url:'wp-admin/admin-ajax.php',
+            // url:'admin-ajax.php',
+            type:'post',
+            data:{
+                action:'wp_persian_calendar_custom_next_month',
+                year:year,
+                month:month,
+            },
+            success:function (response) {
 
+
+                console.log(response);
+                console.log(response.message);
+                let my_json = JSON.parse(response.message);
+                WidgetConstructor(my_json);
+
+
+            },
+            error:function (error) {
+                console.log(error);
+
+                $("#wp_persian_calendar_main").html(error.responseText);
+            }
+
+        });
+    }
     function generateTableHeader(json_persian_dates) {
         let content =   "<caption>"
-            +"<div class='persian' id='wp_persian_tbl_caption_shamsi'"+
+            +"<div style='height: 24px' class='shamsi_header'><span style='width: 20%;float: right' class=\"dashicons dashicons-arrow-down-alt month_select_icon\"></span> <div class='persian' style='width: 50%;float: right' id='wp_persian_tbl_caption_shamsi'"+
             " data-syear='"+ parseInt(json_persian_dates[0].header.shamsi["data-syear"])+
             "' data-smonth='"+ parseInt(json_persian_dates[0].header.shamsi["data-smonth"])
             +" ' data-current-year='"+parseInt(json_persian_dates[0].header.today["year"])
@@ -28,7 +55,7 @@ jQuery(document).ready(function ($) {
             +"  "
             +" > "
             +json_persian_dates[0].header.shamsi["data-sstring"]
-            +"</div>"
+            +"</div><span style='width: 30%;float: right' class=\"dashicons dashicons-arrow-down-alt year_select_icon \"></span></div>"
 
             +"<div class='milady_header'><div class='english' id='wp_persian_tbl_caption_miladi_month_from' data-mmonth-from='"
             +json_persian_dates[0].header.milady["data-mmonth-from"]
@@ -207,68 +234,15 @@ jQuery(document).ready(function ($) {
         $("#next_month").on("click",function (event) {
             event.preventDefault();
             console.log("next_month clicked!");
-            $.ajax({
-                url:'wp-admin/admin-ajax.php',
-                // url:'admin-ajax.php',
-                type:'post',
-                data:{
-                    action:'wp_persian_calendar_custom_next_month',
-                    year:$("#next_month").attr('data-in'),
-                    month:$("#next_month").attr('data-out'),
-                },
-                success:function (response) {
-
-
-                    console.log(response);
-                    console.log(response.message);
-                    let my_json = JSON.parse(response.message);
-                    WidgetConstructor(my_json);
-
-
-                },
-                error:function (error) {
-                    console.log(error);
-
-                    $("#wp_persian_calendar_main").html(error.responseText);
-                }
-
-            });
+            ajax_send($("#next_month").attr('data-in'),$("#next_month").attr('data-out'));
         });
     }
     function add_event_click_to_prev_link() {
         $("#prev_month").on("click",function (event) {
             console.log("prev_month clicked!");
             event.preventDefault();
-            event.preventDefault();
-            $.ajax({
-                url:'wp-admin/admin-ajax.php',
-                // url:'admin-ajax.php',
-                type:'post',
-                data:{
-                    action:'wp_persian_calendar_custom_prev_month',
-                    year:$("#prev_month").attr('data-in'),
-                    month:$("#prev_month").attr('data-out'),
-                },
-                success:function (response) {
+            ajax_send($("#prev_month").attr('data-in'),$("#prev_month").attr('data-out'));
 
-
-                    console.log(response);
-                    console.log(response.message);
-                    let my_json = JSON.parse(response.message);
-
-
-                    console.log(my_json);
-
-                    WidgetConstructor(my_json);
-
-                },
-                error:function (error) {
-                    console.log(error);
-
-                    $("#wp_persian_calendar_main").html(error.responseText);
-                }
-
-            });
         });
     }
     function add_event_click_to_days() {
@@ -291,35 +265,116 @@ jQuery(document).ready(function ($) {
         $("#today_button").on("click",function (event) {
             event.preventDefault();
             console.log("today_button clicked!");
-            $.ajax({
-                url:'wp-admin/admin-ajax.php',
-                // url:'admin-ajax.php',
-                type:'post',
-                data:{
-                    action:'wp_persian_calendar_custom_next_month',
-                    year:$("#wp_persian_tbl_caption_shamsi").attr('data-current-year'),
-                    month:$("#wp_persian_tbl_caption_shamsi").attr('data-current-month'),
-                },
-                success:function (response) {
+            ajax_send($("#wp_persian_tbl_caption_shamsi").attr('data-current-year'),$("#wp_persian_tbl_caption_shamsi").attr('data-current-month'));
 
 
-                    // console.log(response);
-                    // console.log(response.message);
-                    let my_json = JSON.parse(response.message);
-                    WidgetConstructor(my_json);
-
-
-                },
-                error:function (error) {
-                    console.log(error);
-
-                    $("#wp_persian_calendar_main").html(error.responseText);
-                }
-
-            });
         });
     }
+    function add_dialog_box_and_events() {
 
+        $(".month_select_icon").on({
+
+            mouseenter: function () {
+                if($(this).hasClass('dayoff'))
+                    $(this).addClass('dayoff_over');
+                else
+                    $(this).addClass('mouseOver');
+            },
+            mouseleave: function () {
+                if($(this).hasClass('dayoff'))
+                    $(this).removeClass('dayoff_over');
+                else
+                    $(this).removeClass('mouseOver');
+            }
+
+        });
+        $(".year_select_icon").on({
+
+            mouseenter: function () {
+                if($(this).hasClass('dayoff'))
+                    $(this).addClass('dayoff_over');
+                else
+                    $(this).addClass('mouseOver');
+            },
+            mouseleave: function () {
+                if($(this).hasClass('dayoff'))
+                    $(this).removeClass('dayoff_over');
+                else
+                    $(this).removeClass('mouseOver');
+            }
+
+        });
+
+
+        $("#year_select_dialog").dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 2000
+            },
+            hide: {
+                effect: "explode",
+                duration: 1000
+            },
+            modal: true,
+            resizable:true,
+            closeText:'بستن',
+            position: { my: "center center", at: "center center", of: $("#wp_persian_calendar_table") }
+
+        });
+
+        $(".year_select_icon").on("click",function (ev) {
+            ev.preventDefault();
+            $("#year_select_dialog").dialog('open');
+
+        });
+
+        $("#year_select_dialog_close").on("click",function (ev) {
+            ev.preventDefault();
+            $("#year_select_dialog").dialog('close');
+            if($.isNumeric($("#year_select_text").val()) && $("#year_select_text").val()>1349){
+                console.log("مقدار وارد شده، صحیح است");
+                ajax_send($("#year_select_text").val(),$("#wp_persian_tbl_caption_shamsi").attr('data-smonth'));
+            }
+            else {
+                console.log("مقدار وارد شده، صحیح نیست");
+
+            }
+        });
+
+        $("#month_select_dialog").dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 2000
+            },
+            hide: {
+                effect: "explode",
+                duration: 1000
+            },
+            modal: true,
+            resizable:true,
+            position: { my: "center center", at: "center center", of: $("#wp_persian_calendar_table") }
+
+        });
+
+        $(".month_select_icon").on("click",function (ev) {
+            ev.preventDefault();
+            console.log("#month_select");
+            $("#month_select_dialog").dialog('open');
+
+        });
+
+        $(".month_select_button").on("click",function (ev) {
+            ev.preventDefault();
+            console.log($(this).attr('data-out'));
+            ajax_send($("#wp_persian_tbl_caption_shamsi").attr('data-syear'),$(this).attr('data-out'));
+
+            $("#month_select_dialog").dialog('close');
+
+        });
+
+    }
     function WidgetConstructor(json_persian_dates){
         if(json_persian_dates!=null)
             $("#wp_persian_calendar_main").html(generateTable(json_persian_dates));
@@ -329,6 +384,8 @@ jQuery(document).ready(function ($) {
         add_event_click_to_prev_link();
 
         add_event_click_to_days();
+
+        add_dialog_box_and_events();
 
         $('body').persianNum();
         $( document ).tooltip();

@@ -1250,12 +1250,12 @@ function wpp_get_calendar_custom($jy,$jm) {
 
 
 
-    $calendar_output = $calendar_output ."<div class='shamsi_header'> <div class='persian' id='wp_persian_tbl_caption_shamsi'";
+    $calendar_output = $calendar_output ."<div style='height: 24px' class='shamsi_header'><span style='width: 20%;float: right' class=\"dashicons dashicons-arrow-down-alt month_select_icon\"></span> <div class='persian' style='width: 50%;float: right' id='wp_persian_tbl_caption_shamsi'";
     $calendar_output = $calendar_output ." data-syear='".ta_latin_num($jthisyear)."' data-smonth='". ta_latin_num($jthismonth);
     $calendar_output = $calendar_output ."' data-current-year='".intval($today_date[0])
     ." 'data-current-month='".intval($today_date[1])."'> "
     .$pd->persian_month_names[ (int) $jthismonth ] . ' '. $pd->persian_date( 'Y', $unixmonth )
-    ."</div></div>";
+    ."</div><span style='width: 30%;float: right' class=\"dashicons dashicons-arrow-down-alt year_select_icon \"></span></div>";
 
 
 
