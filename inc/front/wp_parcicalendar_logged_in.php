@@ -5,8 +5,6 @@ function wp_persian_calendar_custom_load(){
     $month  = ta_latin_num(parsidate_custom("m"));
     $json_string = wpp_get_calendar_json($year,$month);
     wp_send_json(["message"=>$json_string],200);
-
-
 }
 add_action("wp_ajax_wp_persian_calendar_custom_next_month","wp_persian_calendar_custom_next_month");
 function wp_persian_calendar_custom_next_month(){
@@ -26,3 +24,4 @@ function wp_persian_calendar_custom_prev_month(){
 
 
 }
+
